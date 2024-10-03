@@ -1,0 +1,21 @@
+# httpd.apache.org/docs/2.4/rewrite/flags.html
+Options +FollowSymLinks
+Options -Indexes -MultiViews
+RewriteEngine On
+# unless directory, remove trailing slash
+RewriteCond %{REQUEST_URI}/ !-d
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+# return HTTP 404 if original request has extension
+# back-slash to escape character special meaning
+RewriteCond %{THE_REQUEST} .*\.php.*$ [NC]
+RewriteRule .* - [L,R=404]
+# file-sand & resolve/rewrite extension-less PHP URLs
+RewriteCond %{REQUEST_FILENAME} !-f
+# or is a directory # expression unary operator
+RewriteCond %{REQUEST_FILENAME}\.php -f
+# comment line must start-begin with a pound sign or server generate !! 500 ISE
+RewriteRule ^sand/([^\.]+)$ $1.php [L] # last # wrong instruction use deprecate
+RewriteRule ^myresult/([0-9]+)$ myresult.php?NO=$1 [NC,L] # nocase
+# httpd.apache.org/docs/2.4/custom-error.html # handle
+# ErrorDocument 403 4H3
+# ErrorDocument 404 NULL # or a local-external URL to redirect to

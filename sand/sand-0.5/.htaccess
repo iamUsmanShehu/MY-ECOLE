@@ -1,0 +1,6 @@
+# turn off PHP parsing in current directory
+php_flag engine 0
+# prevent directory listing 403 forbidden
+Options -Indexes
+# httpd.apache.org/docs/2.4/howto/access.html # order authz_host_module
+Require all denied
